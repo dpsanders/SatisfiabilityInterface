@@ -4,9 +4,9 @@ const MOI = MathOptInterface
 @testset "MOI wrapper" begin
     model = SatisfiabilityInterface.Optimizer{Bool}()
 
-    x = MOI.add_constrained_variable(model, MOI.ZeroOne())
-    y = MOI.add_constrained_variable(model, MOI.ZeroOne())
-    z = MOI.add_constrained_variable(model, MOI.ZeroOne())
+    x, _ = MOI.add_constrained_variable(model, MOI.ZeroOne())
+    y, _ = MOI.add_constrained_variable(model, MOI.ZeroOne())
+    z, _ = MOI.add_constrained_variable(model, MOI.ZeroOne())
     
     MOI.add_constraint(model, MOI.VectorOfVariables([x, y, z]), SatisfiabilityInterface.CNF([true, true, true]))
     MOI.add_constraint(model, MOI.VectorOfVariables([x, y, z]), SatisfiabilityInterface.CNF([false, true, true]))

@@ -43,6 +43,7 @@ function MOI.optimize!(model::Optimizer)
     model.status, model.results = solve(model.problem)
 end
 const TERM = Dict(NOT_CALLED => MOI.OPTIMIZE_NOT_CALLED, :sat => MOI.OPTIMAL, :unsat => MOI.INFEASIBLE, :unknown => MOI.TIME_LIMIT)
+MOI.get(model::Optimizer, ::MOI.RawStatusString) = string(model.status)
 MOI.get(model::Optimizer, ::MOI.TerminationStatus) = TERM[model.status]
 MOI.get(model::Optimizer, ::MOI.ResultCount) = model.status == :sat ? 1 : 0
 function MOI.get(model::Optimizer, attr::MOI.PrimalStatus)
